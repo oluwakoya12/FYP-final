@@ -8,6 +8,12 @@ app = FastAPI(title=settings.PROJECT_NAME,
               description=settings.DESCRIPTION)
 
 # CORS
+# CORS Configuration
+origins = [
+    "http://localhost:3000",  # React dev server
+    "http://127.0.0.1:3000",  # Alternative localhost
+]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.BACKEND_CORS_ORIGINS,
