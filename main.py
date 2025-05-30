@@ -1,7 +1,9 @@
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from api.routes import analysis, health
 from core.config import settings
+from contextlib import asynccontextmanager
+from core.models import SentimentModel, get_model
 
 app = FastAPI(title=settings.PROJECT_NAME, 
               version=settings.VERSION,
@@ -16,18 +18,28 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.BACKEND_CORS_ORIGINS,
+    allow_origins=["http://localhost:3000"],  # Your React frontend URL
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],  # Allows all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allows all headers
+    expose_headers=["*"]  # Important for some responses
 )
 
 # Include routers
 app.include_router(health.router, prefix="/health", tags=["health"])
 app.include_router(analysis.router, prefix="/api/v1", tags=["analysis"])
 
-@app.on_event("startup")
-async def startup_event():
-    """Initialize model on startup"""
-    from core.models import load_models
-    load_models()  # Load ML models when app starts
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    try:
+        # This will raise an exception if model files are missing
+        get_model()
+        yield
+    except FileNotFoundError as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Model loading failed: {str(e)}. "
+                   "Please ensure you have placed bigru_model.keras and tokenizer.pkl in the models/ directory."
+        )
+
+app = FastAPI(lifespan=lifespan)

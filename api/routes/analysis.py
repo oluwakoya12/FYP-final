@@ -1,5 +1,6 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException
 from core.models import SentimentModel
+from core.models import get_model
 from src.data_preprocessing import clean_text
 from src.feature_analysis import (
     extract_features, calculate_sentiment_scores,
@@ -58,6 +59,10 @@ async def process_uploaded_file(file: UploadFile):
             except:
                 pass
 
+@router.post("/analyze")
+async def analyze_reviews(file: UploadFile = File(...)):
+    model = get_model()  # Get the singleton instance
+    # Use model.model and model.tokenizer in your processing
 
 @router.post("/analyze", response_model=AnalysisResult)
 async def analyze_reviews(file: UploadFile = File(...)):
