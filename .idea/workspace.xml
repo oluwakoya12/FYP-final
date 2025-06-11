@@ -4,7 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0607fca6-a65b-47d2-94dd-bbff23bd9dfe" name="Changes" comment="last" />
+    <list default="true" id="0607fca6-a65b-47d2-94dd-bbff23bd9dfe" name="Changes" comment="last">
+      <change afterPath="$PROJECT_DIR$/models/label_encoder.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/routes/analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes/analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/raw/new_reviews.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/bigru_model.keras" beforeDir="false" afterPath="$PROJECT_DIR$/models/bigru_model.keras" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/tokenizer.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/models/tokenizer.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/new_reviews.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data_preprocessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_preprocessing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model_training.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing/clean.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing/next.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing/reviews.csv" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -139,15 +156,5 @@
     <MESSAGE value="third" />
     <MESSAGE value="last" />
     <option name="LAST_COMMIT_MESSAGE" value="last" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

@@ -17,12 +17,12 @@ def clean_text(text):
 
 
 def load_and_clean_data(filepath):
-    """Load and clean the raw data"""
+    """Load and clean the raw data for 3-class sentiment"""
     df = pd.read_csv(filepath)
-    df['sentiment'] = df['Rating'].apply(lambda x: 1 if x >= 4 else (0 if x <= 2 else np.nan))
-    df = df.dropna(subset=['sentiment'])
+    df['sentiment'] = df['Rating'].apply(lambda x: 2 if x == 3 else (1 if x >= 4 else 0))
     df['cleaned_review'] = df['Review'].apply(clean_text)
     return df
+
 
 
 def preprocess_data(df, test_size=0.2, max_words=20000, max_len=200):

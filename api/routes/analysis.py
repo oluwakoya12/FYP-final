@@ -1,5 +1,3 @@
-# api/routes/analysis.py
-
 from fastapi import APIRouter, UploadFile, File, HTTPException
 from core.models import get_model, sentiment_model
 from src.data_preprocessing import clean_text
@@ -11,6 +9,8 @@ from tempfile import NamedTemporaryFile
 import pandas as pd
 import numpy as np
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+from pathlib import Path
+import pickle
 import logging
 import os
 
@@ -37,7 +37,7 @@ async def process_uploaded_file(file: UploadFile):
             tmp_path = tmp.name
 
         df = pd.read_csv(tmp_path)
-        required_columns = {'Title', 'Rating', 'Review', 'Customer Name', 'Date', 'Customer Location'}
+        required_columns = {'Title', 'Rating', 'Review'}
 
         if not required_columns.issubset(df.columns):
             raise HTTPException(
@@ -61,30 +61,58 @@ async def process_uploaded_file(file: UploadFile):
 async def analyze_reviews(file: UploadFile = File(...)):
     """Analyze uploaded reviews for sentiment and features"""
     try:
+        print("🔄 Starting analysis endpoint...")
+
         model, tokenizer = get_model()
+        print("✅ Model and tokenizer loaded.")
+
+        # Load label encoder and create label map
+        label_encoder_path = Path("models/label_encoder.pkl")
+        if not label_encoder_path.exists():
+            raise HTTPException(status_code=500, detail="Label encoder file missing.")
+
+        with open(label_encoder_path, "rb") as f:
+            le = pickle.load(f)
+        label_map = {i: label for i, label in enumerate(le.classes_)}
+        print("✅ Label encoder loaded.")
 
         df = await process_uploaded_file(file)
+        print(f"✅ File processed. Number of rows: {len(df)}")
+
         df['cleaned_review'] = df['Review'].apply(clean_text)
+        print("✅ Reviews cleaned.")
 
         sequences = tokenizer.texts_to_sequences(df['cleaned_review'])
         padded = pad_sequences(sequences, maxlen=sentiment_model.max_length, padding='post')
+        print(f"✅ Text tokenized and padded. Shape: {padded.shape}")
 
         predictions = model.predict(padded)
-        df['predicted_sentiment'] = np.where(predictions > 0.5, 'Positive', 'Negative')
+        print("✅ Predictions made.")
 
-        # Feature keyword analysis
+        predicted_classes = np.argmax(predictions, axis=1)
+        df['predicted_sentiment'] = [label_map[i] for i in predicted_classes]
+        print("✅ Sentiment labels assigned.")
+
         all_keywords = [kw for sublist in FEATURE_KEYWORDS.values() for kw in sublist]
         feature_df = extract_features(df['cleaned_review'], all_keywords)
+        print("✅ Features extracted from reviews.")
 
         for feature, keywords in FEATURE_KEYWORDS.items():
             feature_df[feature] = feature_df[keywords].any(axis=1).astype(int)
+        print("✅ Feature presence columns added.")
 
         feature_df = feature_df[list(FEATURE_KEYWORDS.keys())]
+
         sentiment_scores = calculate_sentiment_scores(df['cleaned_review'])
+        print("✅ Sentiment scores calculated.")
+
         results_df, _ = analyze_feature_sentiment(feature_df, sentiment_scores)
+        print("✅ Feature sentiment analysis complete.")
 
         sentiment_dist = df['predicted_sentiment'].value_counts(normalize=True).to_dict()
+        print("✅ Sentiment distribution calculated.")
 
+        print("✅ Returning response.")
         return {
             "sentiment_distribution": sentiment_dist,
             "feature_impacts": results_df.to_dict('records'),
@@ -93,5 +121,6 @@ async def analyze_reviews(file: UploadFile = File(...)):
         }
 
     except Exception as e:
+        print(f"❌ Error during analysis: {str(e)}")
         logger.error(f"Analysis error: {e}")
         raise HTTPException(status_code=500, detail="Error during analysis")

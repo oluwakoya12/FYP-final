@@ -4,7 +4,7 @@ import os
 import tensorflow as tf
 import pickle
 from pathlib import Path
-from src.model_training import AttentionLayer
+
 
 
 class SentimentModel:
@@ -27,10 +27,7 @@ class SentimentModel:
             raise FileNotFoundError(f"Tokenizer file not found at {tokenizer_path}")
 
         print("Loading pre-trained model...")
-        self.model = tf.keras.models.load_model(
-            model_path,
-            custom_objects={'AttentionLayer': AttentionLayer}
-        )
+        self.model = tf.keras.models.load_model(model_path)
         with open(tokenizer_path, "rb") as f:
             self.tokenizer = pickle.load(f)
 
