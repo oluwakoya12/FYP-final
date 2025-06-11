@@ -4,23 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0607fca6-a65b-47d2-94dd-bbff23bd9dfe" name="Changes" comment="last">
-      <change afterPath="$PROJECT_DIR$/models/label_encoder.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/routes/analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes/analysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/raw/new_reviews.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/bigru_model.keras" beforeDir="false" afterPath="$PROJECT_DIR$/models/bigru_model.keras" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/tokenizer.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/models/tokenizer.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/new_reviews.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data_preprocessing.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_preprocessing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model_training.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_data.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing/clean.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing/next.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing/reviews.csv" beforeDir="false" />
+    <list default="true" id="0607fca6-a65b-47d2-94dd-bbff23bd9dfe" name="Changes" comment="complete FYP">
+      <change beforePath="$PROJECT_DIR$/requirements-api.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +124,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748608500991</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="complete FYP">
+      <option name="closed" value="true" />
+      <created>1749682121957</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1749682121969</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -155,6 +149,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="third" />
     <MESSAGE value="last" />
-    <option name="LAST_COMMIT_MESSAGE" value="last" />
+    <MESSAGE value="complete FYP" />
+    <option name="LAST_COMMIT_MESSAGE" value="complete FYP" />
   </component>
 </project>
